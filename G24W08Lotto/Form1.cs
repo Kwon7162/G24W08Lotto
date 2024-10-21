@@ -3,6 +3,7 @@ namespace G24W08Lotto
     public partial class Form1 : Form
     {
         private const int LottoCount = 6;
+        private const int MaxNumber = 45;
         public Form1()
         {
             InitializeComponent();
@@ -10,22 +11,16 @@ namespace G24W08Lotto
 
         private void OnGenerate(object sender, EventArgs e)
         {
-            
+
+            HashSet<int> numSet = new HashSet<int>();
             Random r = new Random();
-            int[] num = new int[LottoCount];
 
-            for (int i = 0; i < num.Length; i++)
+            while (numSet.Count < LottoCount)
             {
-                int n = 0;
-                do
-                {
-                    n = r.Next(1, 46);
-                } while (num.Contains(n));
-                //} while (Array.IndexOf(num, n) > -1);
-
-                num[i] = n;
+                numSet.Add(r.Next(1, MaxNumber + 1));
             }
 
+            int[] num = numSet.ToArray();
             Array.Sort(num);
 
             Num1.Text = num[0].ToString();
